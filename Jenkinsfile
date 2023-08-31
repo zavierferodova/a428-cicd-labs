@@ -19,12 +19,12 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Approval') {
+        stage('Manual Approval') {
             steps {
                 input message: 'Deploy to production? (Press "Proceed" to continue)'
             }
         }
-        stage('Deliver') {
+        stage('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the website? (Click "Proceed" to continue)'
