@@ -19,10 +19,16 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
+        stage('Approval') {
+            steps {
+                input message: 'Deploy to production? (Press "Proceed" to continue)'
+            }
+        }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the website? (Click "Proceed" to continue)'
+                sleep time: 1, unit: 'MINUTES'
                 sh './jenkins/scripts/kill.sh'
             }
         }
